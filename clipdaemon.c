@@ -3,7 +3,7 @@
  * forked from ClipIt, which is
  * Copyright (C) 2010-2012 by Cristian Henzel <oss@rspwn.com>
  *
- * ClipIt forked from parcellite, which is
+ * ClipIt is forked from parcellite, which is
  * Copyright (C) 2007-2008 by Xyhthyx <xyhthyx@gmail.com>
  *
  * This file is part of clipdaemon.
