@@ -1,7 +1,8 @@
 /* Copyright (C) 2020 by Ashish Kumar Yadav <ashishkumar.yadav@students.iiserpune.ac.in>
  *
  * forked from ClipIt, which is
- * Copyright (C) 2010-2012 by Cristian Henzel <oss@rspwn.com>
+ * Copyright (C) 2010-2019 by Cristian Henzel <oss@rspwn.com>
+ * Copyright (C) 2011 by Eugene Nikolsky <pluton.od@gmail.com>
  *
  * ClipIt is forked from parcellite, which is
  * Copyright (C) 2007-2008 by Xyhthyx <xyhthyx@gmail.com>
