@@ -1,3 +1,6 @@
+#PREFIX = /usr/local
+PREFIX = ${HOME}/.local
+
 CC=gcc
 CFLAGS=-Wall -Werror -O3
 
@@ -6,3 +9,9 @@ clipdaemon: clipdaemon.c
 
 clean:
 	rm -f clipdaemon
+
+install:
+	mkdir -p ${DESTDIR}${PREFIX}/bin
+	install -m 0755 clipdaemon ${DESTDIR}${PREFIX}/bin/clipdaemon
+
+.PHONY: clean install
