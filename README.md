@@ -9,7 +9,7 @@ responsible for clipboard persistence, extracted out to be a standalone program.
 Clone the repository and run
 ```
 cd clipdaemon
-make
+make install clean
 ```
-Make sure that `~/.local/bin` is in your PATH environment variable, as it is
-the default installation destination.
+Make sure that `$HOME/.local/bin` is in your PATH environment variable, as it is
+the default installation destination (read the Makefile).
