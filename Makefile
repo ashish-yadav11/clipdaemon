@@ -10,7 +10,7 @@ clipdaemon: clipdaemon.c
 clean:
 	rm -f clipdaemon
 
-install:
+install: clipdaemon
 	mkdir -p ${DESTDIR}${PREFIX}/bin
 	install -m 0755 clipdaemon ${DESTDIR}${PREFIX}/bin/clipdaemon
 
