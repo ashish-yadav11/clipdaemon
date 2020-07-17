@@ -12,4 +12,4 @@ cd clipdaemon
 make install clean
 ```
 Make sure that `$HOME/.local/bin` is in your PATH environment variable, as it is
-the default installation destination (read the Makefile).
+the default installation destination (read the [Makefile](./Makefile)).
