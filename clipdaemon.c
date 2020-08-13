@@ -29,20 +29,21 @@
 #include <gtk/gtk.h>
 #include <gobject/gvaluecollector.h>
 
-static gchar *primary_text;
-static gchar *clipboard_text;
-static GtkClipboard *primary;
-static GtkClipboard *clipboard;
+gchar *primary_text;
+gchar *clipboard_text;
+GtkClipboard *primary;
+GtkClipboard *clipboard;
 
 /* Called during the daemon loop to protect primary/clipboard contents */
-static void daemon_check()
+void
+daemon_check()
 {
 	/* Get current primary/clipboard contents */
 	gchar *primary_temp = gtk_clipboard_wait_for_text(primary);
 	gchar *clipboard_temp = gtk_clipboard_wait_for_text(clipboard);
 
 	/* Check if primary contents were lost */
-	if ((primary_temp == NULL) && (primary_text != NULL)) {
+	if (!primary_temp && primary_text) {
 		/* Check contents */
 		gint count;
 		GdkAtom *targets;
@@ -65,14 +66,14 @@ static void daemon_check()
 			gdk_window_get_device_position(window, gdk_seat_get_pointer(seat), NULL,
 				NULL, &button_state);
 		}
-		if ((primary_temp != NULL) && !(button_state & GDK_BUTTON1_MASK)) {
+		if (primary_temp && !(button_state & GDK_BUTTON1_MASK)) {
 			g_free(primary_text);
 			primary_text = g_strdup(primary_temp);
 		}
 	}
 
 	/* Check if clipboard contents were lost */
-	if ((clipboard_temp == NULL) && (clipboard_text != NULL)) {
+	if (!clipboard_temp && clipboard_text) {
 		/* Check contents */
 		gint count;
 		GdkAtom *targets;
@@ -90,8 +91,8 @@ static void daemon_check()
 	g_free(clipboard_temp);
 }
 
-/* Initializes daemon mode */
-int main()
+int
+main()
 {
 	/* Initiate GTK+ */
         gtk_init(0, NULL);
