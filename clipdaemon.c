@@ -95,7 +95,7 @@ int
 main()
 {
 	/* Initiate GTK+ */
-        gtk_init(0, NULL);
+	gtk_init(0, NULL);
 
 	/* Create clipboard and primary and connect signals */
 	primary = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
@@ -109,5 +109,5 @@ main()
 	/* Start daemon loop */
 	gtk_main();
 
-        return 0;
+	return 0;
 }
