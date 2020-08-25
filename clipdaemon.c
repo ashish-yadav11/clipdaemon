@@ -34,79 +34,77 @@ gchar *clipboard_text;
 GtkClipboard *primary;
 GtkClipboard *clipboard;
 
-/* Called during the daemon loop to protect primary/clipboard contents */
 void
-daemon_check()
+primary_handler()
 {
-	/* Get current primary/clipboard contents */
+	/* get text in primary selection */
 	gchar *primary_temp = gtk_clipboard_wait_for_text(primary);
-	gchar *clipboard_temp = gtk_clipboard_wait_for_text(clipboard);
 
-	/* Check if primary contents were lost */
+	/* check if text in primary selection was lost */
 	if (!primary_temp && primary_text) {
-		/* Check contents */
 		gint count;
 		GdkAtom *targets;
 		gboolean contents = gtk_clipboard_wait_for_targets(primary, &targets, &count);
 
 		g_free(targets);
-		/* Only recover lost contents if there isn't any other type of content in the clipboard */
+		/* only recover primary selection if it doesn't have any other type of content */
 		if (!contents)
 			gtk_clipboard_set_text(primary, primary_text, -1);
 	} else {
-		/* Get the button state to check if the mouse button is being held */
+		/* get the button state to check if the left mouse button is being held */
 		GdkModifierType button_state;
-		GdkScreen *screen = gdk_screen_get_default();
+                GdkDisplay *display = gdk_display_get_default();
+                GdkScreen *screen = gdk_display_get_default_screen(display);
+                GdkSeat *seat = gdk_display_get_default_seat(display);
+                GdkWindow *window = gdk_screen_get_root_window(screen);
+                GdkDevice *pointer = gdk_seat_get_pointer(seat);
 
-		if (screen) {
-			GdkDisplay *display = gdk_screen_get_display(screen);
-			GdkWindow *window = gdk_screen_get_root_window(screen);
-			GdkSeat *seat = gdk_display_get_default_seat(display);
-
-			gdk_window_get_device_position(window, gdk_seat_get_pointer(seat), NULL,
-				NULL, &button_state);
-		}
+                gdk_window_get_device_position_double(window, pointer, NULL, NULL, &button_state);
 		if (primary_temp && !(button_state & GDK_BUTTON1_MASK)) {
 			g_free(primary_text);
 			primary_text = g_strdup(primary_temp);
 		}
 	}
+	g_free(primary_temp);
+}
 
-	/* Check if clipboard contents were lost */
+void
+clipboard_handler()
+{
+	/* get text in clipboard selection */
+	gchar *clipboard_temp = gtk_clipboard_wait_for_text(clipboard);
+
+	/* check if text in clipboard selection was lost */
 	if (!clipboard_temp && clipboard_text) {
-		/* Check contents */
 		gint count;
 		GdkAtom *targets;
 		gboolean contents = gtk_clipboard_wait_for_targets(clipboard, &targets, &count);
 
 		g_free(targets);
-		/* Only recover lost contents if there isn't any other type of content in the clipboard */
+		/* only recover clipboard selection if it doesn't have any other type of content */
 		if (!contents)
 			gtk_clipboard_set_text(clipboard, clipboard_text, -1);
 	} else {
 		g_free(clipboard_text);
 		clipboard_text = g_strdup(clipboard_temp);
 	}
-	g_free(primary_temp);
 	g_free(clipboard_temp);
 }
 
 int
 main()
 {
-	/* Initiate GTK+ */
+	/* initiate GTK+ */
 	gtk_init(0, NULL);
 
-	/* Create clipboard and primary and connect signals */
+	/* create primary and clipboard selection objects */
 	primary = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
 	clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
 
-	/* Add the daemon loop */
-	/* Register for clipboard change events */
-	g_signal_connect(primary, "owner-change", G_CALLBACK(daemon_check), NULL);
-	g_signal_connect(clipboard, "owner-change", G_CALLBACK(daemon_check), NULL);
+	/* register for clipboard change events */
+	g_signal_connect(primary, "owner-change", G_CALLBACK(primary_handler), NULL);
+	g_signal_connect(clipboard, "owner-change", G_CALLBACK(clipboard_handler), NULL);
 
-	/* Start daemon loop */
 	gtk_main();
 
 	return 0;
