@@ -1,12 +1,11 @@
 # clipdaemon
 
-clipdaemon is the daemon part of
-[ClipIt](https://github.com/CristianHenzel/ClipIt)
-responsible for clipboard persistence, extracted out to be a standalone program.
+A simple GTK+ based daemon for clipboard persistence, forked from
+[ClipIt](https://github.com/CristianHenzel/ClipIt).
 
 # Installation
 
-Clone the repository and run
+Clone the repository and run -
 ```
 cd clipdaemon
 make install clean
