@@ -44,12 +44,11 @@ primary_handler()
 	if (!primary_temp && primary_text) {
 		gint count;
 		GdkAtom *targets;
-		gboolean contents = gtk_clipboard_wait_for_targets(primary, &targets, &count);
 
-		g_free(targets);
 		/* only recover primary selection if it doesn't have any other type of content */
-		if (!contents)
+		if (!gtk_clipboard_wait_for_targets(primary, &targets, &count))
 			gtk_clipboard_set_text(primary, primary_text, -1);
+		g_free(targets);
 	} else {
 		/* get the button state to check if the left mouse button is being held */
 		GdkModifierType button_state;
@@ -78,12 +77,11 @@ clipboard_handler()
 	if (!clipboard_temp && clipboard_text) {
 		gint count;
 		GdkAtom *targets;
-		gboolean contents = gtk_clipboard_wait_for_targets(clipboard, &targets, &count);
 
-		g_free(targets);
 		/* only recover clipboard selection if it doesn't have any other type of content */
-		if (!contents)
+		if (!gtk_clipboard_wait_for_targets(clipboard, &targets, &count))
 			gtk_clipboard_set_text(clipboard, clipboard_text, -1);
+		g_free(targets);
 	} else {
 		g_free(clipboard_text);
 		clipboard_text = g_strdup(clipboard_temp);
