@@ -1,8 +1,8 @@
 # clipdaemon
 
-A simple GTK+ based daemon for clipboard persistence.
-
-Forked from [ClipIt](https://github.com/CristianHenzel/ClipIt).
+A simple GTK+ based daemon, forked from
+[ClipIt](https://github.com/CristianHenzel/ClipIt),
+for clipboard persistence.
 
 # Installation
 
