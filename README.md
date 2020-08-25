@@ -6,7 +6,7 @@ for clipboard persistence.
 
 # Installation
 
-Clone the repository and run -
+Clone the repository and run
 ```
 cd clipdaemon
 make install clean
