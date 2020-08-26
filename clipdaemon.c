@@ -29,14 +29,13 @@
 #include <gtk/gtk.h>
 #include <gobject/gvaluecollector.h>
 
-gchar *primary_text;
-gchar *clipboard_text;
 GtkClipboard *primary;
 GtkClipboard *clipboard;
 
 void
 primary_handler()
 {
+        static gchar *primary_text;
 	/* get text in primary selection */
 	gchar *primary_temp = gtk_clipboard_wait_for_text(primary);
 
@@ -61,15 +60,16 @@ primary_handler()
                 gdk_window_get_device_position_double(window, pointer, NULL, NULL, &button_state);
 		if (primary_temp && !(button_state & GDK_BUTTON1_MASK)) {
 			g_free(primary_text);
-			primary_text = g_strdup(primary_temp);
-		}
+			primary_text = primary_temp;
+		} else
+                        g_free(primary_temp);
 	}
-	g_free(primary_temp);
 }
 
 void
 clipboard_handler()
 {
+        static gchar *clipboard_text;
 	/* get text in clipboard selection */
 	gchar *clipboard_temp = gtk_clipboard_wait_for_text(clipboard);
 
@@ -84,9 +84,8 @@ clipboard_handler()
 		g_free(targets);
 	} else {
 		g_free(clipboard_text);
-		clipboard_text = g_strdup(clipboard_temp);
+		clipboard_text = clipboard_temp;
 	}
-	g_free(clipboard_temp);
 }
 
 int
