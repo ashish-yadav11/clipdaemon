@@ -14,4 +14,7 @@ install: clipdaemon
 	mkdir -p ${DESTDIR}${PREFIX}/bin
 	install -m 0755 clipdaemon ${DESTDIR}${PREFIX}/bin/clipdaemon
 
-.PHONY: clean install
+uninstall:
+	rm -f ${DESTDIR}${PREFIX}/bin/clipdaemon
+
+.PHONY: clean install uninstall
