@@ -2,7 +2,7 @@
 PREFIX = ${HOME}/.local
 
 CC = gcc
-CFLAGS = -O3 -Wall -Werror
+CFLAGS = -O3 -Wall -Wextra
 
 clipdaemon: clipdaemon.c
 	${CC} -o $@ ${CFLAGS} `pkg-config --cflags gtk+-3.0` $< `pkg-config --libs gtk+-3.0`
