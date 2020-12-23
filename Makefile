@@ -1,11 +1,10 @@
-#PREFIX = /usr/local
-PREFIX = ${HOME}/.local
+PREFIX = /usr/local
 
 CC = gcc
 CFLAGS = -O3 -Wall -Wextra
 
 clipdaemon: clipdaemon.c
-	${CC} -o $@ ${CFLAGS} `pkg-config --cflags gtk+-3.0` $< `pkg-config --libs gtk+-3.0`
+	${CC} -o $@ ${CFLAGS} `pkg-config --cflags gtk+-3.0` clipdaemon.c `pkg-config --libs gtk+-3.0`
 
 clean:
 	rm -f clipdaemon

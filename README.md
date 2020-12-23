@@ -9,7 +9,5 @@ for clipboard persistence.
 Clone the repository and run
 ```
 cd clipdaemon
-make install clean
+sudo make install clean
 ```
-> Make sure that `$HOME/.local/bin` is in your PATH environment variable, as it
-> is the default installation destination ([Makefile](Makefile)).
