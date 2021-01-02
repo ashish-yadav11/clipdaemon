@@ -1,4 +1,4 @@
-/* Copyright (C) 2020 by Ashish Kumar Yadav <ashishkumar.yadav@students.iiserpune.ac.in>
+/* Copyright (C) 2020-2021 by Ashish Kumar Yadav <ashishkumar.yadav@students.iiserpune.ac.in>
  *
  * forked from ClipIt, which is
  * Copyright (C) 2010-2019 by Cristian Henzel <oss@rspwn.com>
