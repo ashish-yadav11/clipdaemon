@@ -9,5 +9,6 @@ for clipboard persistence.
 Clone the repository and run
 ```
 cd clipdaemon
-sudo make install clean
+make
+sudo make install
 ```
