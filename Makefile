@@ -11,7 +11,8 @@ clean:
 
 install: clipdaemon
 	mkdir -p ${DESTDIR}${PREFIX}/bin
-	install -m 0755 clipdaemon ${DESTDIR}${PREFIX}/bin/clipdaemon
+	cp -f clipdaemon ${DESTDIR}${PREFIX}/bin/clipdaemon
+	chmod 755 ${DESTDIR}${PREFIX}/bin/clipdaemon
 
 uninstall:
 	rm -f ${DESTDIR}${PREFIX}/bin/clipdaemon
