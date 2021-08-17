@@ -89,7 +89,7 @@ clipboard_handler()
 }
 
 int
-main()
+main(void)
 {
 	/* initiate GTK+ */
 	gtk_init(0, NULL);
